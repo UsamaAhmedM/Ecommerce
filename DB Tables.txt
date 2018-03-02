@@ -1,0 +1,66 @@
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `job` varchar(45) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `balance` double NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `image` mediumblob,
+  `type` varchar(45) NOT NULL DEFAULT 'user',
+  PRIMARY KEY (`user_id`)
+)
+CREATE TABLE `user_interests` (
+  `user_id` int(11) NOT NULL,
+  `interest` varchar(45) NOT NULL,
+  PRIMARY KEY (`user_id`,`interest`),
+  CONSTRAINT `interests of user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+)
+CREATE TABLE `product` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `price` double NOT NULL,
+  `quantity_stock` int(11) NOT NULL,
+  `vendor` varchar(45) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `image` mediumblob,
+  `quantity_cart` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`)
+)
+CREATE TABLE `cart` (
+  `cart_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  PRIMARY KEY (`cart_id`,`user_id`)
+)
+CREATE TABLE `cart_products` (
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`cart_id`,`product_id`),
+  KEY `product_idx` (`product_id`),
+  CONSTRAINT `cart` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
+)
+CREATE TABLE `cart_products_history` (
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`cart_id`,`product_id`),
+  KEY `product_idx` (`product_id`),
+  CONSTRAINT `hist_cart` FOREIGN KEY (`cart_id`) REFERENCES `cart_history` (`cart_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) 
+CREATE TABLE `cart_history` (
+  `cart_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `total_price` double NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cart_id`,`user_id`),
+  KEY `products in cart _idx` (`cart_id`)
+)
+
