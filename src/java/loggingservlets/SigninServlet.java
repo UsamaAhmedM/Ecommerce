@@ -57,10 +57,10 @@ public class SigninServlet extends HttpServlet {
                     response.sendRedirect("Home.jsp");
 
                 } else {
-                    response.sendRedirect("SignIn.jsp?n=Wrong+Password");
+                     response.sendRedirect("SignIn.jsp?n=Wrong+Email+OR+Password");
                 }
             } else {
-                response.sendRedirect("SignIn.jsp?n=User+Not+Exist");
+                response.sendRedirect("SignIn.jsp?n=Wrong+Email+OR+Password");
             }
         } // if request comming from Sign in filter
         else if (request.getAttribute("email") != null && request.getAttribute("password") != null) {
@@ -82,10 +82,10 @@ public class SigninServlet extends HttpServlet {
                     response.sendRedirect("Home.jsp");
 
                 } else {
-                    response.sendRedirect("SignIn.jsp?n=Wrong+Password");
+                    response.sendRedirect("SignIn.jsp?n=Wrong+Email+OR+Password");
                 }
             } else {
-                response.sendRedirect("SignIn.jsp?n=User+Not+Exist");
+                response.sendRedirect("SignIn.jsp?n=Wrong+Email+OR+Password");
             }
 
         }
